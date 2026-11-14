@@ -33,11 +33,11 @@ I first ran `npm install`, `npm run typecheck` and `npm test` to see the startin
 
 ## How did you use an AI coding agent?
 
-I used Claude in a chat window. I pasted the starter code in, asked it to find and rank problems, and asked it to write the fixes. I ran everything myself in Terminal and pasted the real output back. I did not just accept the first version; I tested it on a small demo repository.
+I used Claude in a chat window. I pasted the starter code in and asked it to find and rank problems and to write the fixes. The AI also proposed the hybrid interface decision and the allowlist idea; I read the reasoning and agreed with it, but I did not come up with it alone. I ran every command myself in Terminal and pasted the real output back, and I tested the result on a small demo repository.
 
 ## Where did you check, correct, or reject an AI suggestion? (required)
 
-- **Corrected:** the AI's first `validation.ts` put `error.message` in the report and then also added the command output. When I ran it on my demo repo, the npm error text showed twice. I changed it to print only the exit code plus the output once and checked again.
+- **Corrected:** the first `validation.ts` the AI wrote put `error.message` in the report and then also added the command output. I ran it on my demo repo and sent the terminal output back; the AI pointed out the npm error text appeared twice. We changed it to print only the exit code plus the output once, and I ran it again to check.
 - **Rejected:** the AI advised me not to run `npm audit fix --force` for the 15 vulnerability warnings, and I agreed, because it can break dependencies and the issue is not part of this task.
 - **Checked rather than trusted:** I tested the MCP tool by sending it a real tool call instead of assuming the field-name fix worked.
 
@@ -46,7 +46,7 @@ I used Claude in a chat window. I pasted the starter code in, asked it to find a
 - `npm run typecheck`: no errors.
 - `npm test`: 3 test files, 7 tests passed.
 - `npm run inspector -- review --repo ~/"demo repo" --validate "npm test" --validate "echo hi"` on a small test repo with a space in its path: listed `a.txt (modified)`, `b.txt (added)`, `c.txt (untracked)`; `npm test` shown as failed (no package.json there) and the report was still written; `echo hi` shown as blocked.
-- `--base-ref "--output=x"` and `--format json`: each printed a clear error line.
+- `--base-ref "--output=x"`: the CLI parser rejected it first with `Error: Missing value for --base-ref`. The git-level check for refs starting with `-` is covered by a unit test and protects the MCP path, which has no CLI parser. `--format json`: printed `Error: Format "json" is not supported yet. Use --format markdown.`
 - A manual MCP `tools/call` over stdio with `repoPath` returned the report.
 
 ## A blocker you hit and how you approached it
