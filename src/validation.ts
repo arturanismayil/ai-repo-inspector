@@ -31,7 +31,7 @@ export function runValidation(command: string, cwd: string): Promise<ValidationR
     execFile(file, args, { cwd, timeout: TIMEOUT_MS, maxBuffer: MAX_OUTPUT_BYTES }, (error, stdout, stderr) => {
       const output = [stdout, stderr].filter(Boolean).join("\n");
       if (error) {
-        const reason = error.killed ? `Timed out after ${TIMEOUT_MS / 1000}s` : error.message;
+        const reason = error.killed ? `Timed out after ${TIMEOUT_MS / 1000}s` : `Exit code ${error.code}`;
         resolve({ command, status: "failed", output: `${reason}\n${output}` });
         return;
       }
