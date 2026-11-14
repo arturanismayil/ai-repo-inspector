@@ -63,5 +63,5 @@ Next three: (1) automated tests that create a temporary git repo, (2) an optiona
 
 ## Approximate focused-work time
 
-- Start: 20:02
+- Start: 19:58 (first terminal command; I started reading the brief with the AI at about 19:51)
 - Finish: 20:46
